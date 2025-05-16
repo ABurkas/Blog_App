@@ -1,0 +1,9 @@
+<h1>Witaj na blogu!</h1>
+
+<%= link_to 'Zobacz posty', posts_path, class: 'btn btn-primary' %>
+
+<% if user_signed_in? %>
+  <%= link_to 'Dodaj nowy post', new_post_path, class: 'btn btn-success' %>
+<% else %>
+  <p><%= link_to 'Zaloguj się', new_user_session_path %>, żeby dodawać posty.</p>
+<% end %>

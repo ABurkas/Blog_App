@@ -1,0 +1,54 @@
+<h2 class="mb-4 text-center">Sign in</h2>
+
+<div class="mx-auto" style="max-width: 320px;">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
+    <div class="mb-3">
+      <%= f.label :email, class: "form-label" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", required: true %>
+      <div class="invalid-feedback">
+        Proszę podać poprawny adres email.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :password, class: "form-label" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "form-control", required: true %>
+      <div class="invalid-feedback">
+        Proszę podać hasło.
+      </div>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="form-check mb-3">
+        <%= f.check_box :remember_me, class: "form-check-input", id: "remember_me" %>
+        <%= f.label :remember_me, class: "form-check-label", for: "remember_me" %>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.submit "Sign in", class: "btn btn-primary w-100" %>
+    </div>
+  <% end %>
+
+  <div class="mt-3 text-center">
+    <%= link_to "Sign up", new_registration_path(resource_name), class: "btn btn-link p-0" %> |
+    <%= link_to "Forgot your password?", new_password_path(resource_name), class: "btn btn-link p-0" %>
+  </div>
+</div>
+
+<script>
+    // Bootstrap validation example
+    (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>

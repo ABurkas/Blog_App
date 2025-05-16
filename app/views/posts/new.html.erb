@@ -1,0 +1,32 @@
+<h1>Nowy post</h1>
+
+<%= form_with(model: @post, local: true, class: "mt-4") do |form| %>
+  <% if @post.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@post.errors.count, "błąd") %> uniemożliwiło zapisanie posta:</h4>
+      <ul>
+        <% @post.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+
+    <%= form.text_field :title, class: "form-control", placeholder: "Tytuł posta" %>
+  </div>
+
+  <div class="mb-3">
+
+    <%= form.text_area :body, rows: 6, class: "form-control", placeholder: "Treść posta" %>
+  </div>
+
+  <div>
+    <%= form.submit "Utwórz post", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Powrót do listy', posts_path %>
+

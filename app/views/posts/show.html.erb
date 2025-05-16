@@ -1,0 +1,36 @@
+<div class="container mt-4" style="max-width: 700px;">
+  <h1 class="mb-3"><%= @post.title %></h1>
+  <p class="fs-5 mb-4"><%= @post.body %></p>
+
+  <h3>Komentarze</h3>
+  <% if @post.comments.any? %>
+    <ul class="list-group mb-4">
+      <% @post.comments.each do |comment| %>
+        <li class="list-group-item">
+          <p class="mb-1"><%= comment.body %></p>
+          <small class="text-muted">— <em><%= comment.user ? comment.user.email : "Anonimowy" %></em></small>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-muted mb-4">Brak komentarzy.</p>
+  <% end %>
+
+  <h3>Dodaj komentarz</h3>
+  <%= form_with(model: [@post, Comment.new], local: true) do |form| %>
+    <div class="mb-3">
+      <%= form.text_area :body, class: "form-control", rows: 3, placeholder: "Twój komentarz" %>
+    </div>
+    <div class="d-flex gap-2 align-items-center">
+      <%= form.submit "Dodaj komentarz", class: "btn btn-primary" %>
+
+      <% if user_signed_in? && current_user == @post.user %>
+        <%= link_to "Edytuj post", edit_post_path(@post), class: "btn btn-secondary" %>
+        <%= link_to "Usuń post", post_path(@post),
+                    data: { turbo_method: :delete, turbo_confirm: "Na pewno usunąć ten post?" },
+                    class: "btn btn-danger" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+

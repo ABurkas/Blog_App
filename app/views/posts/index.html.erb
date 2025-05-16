@@ -1,0 +1,35 @@
+<h1 class="mb-4 text-center">Wszystkie posty</h1>
+<style>
+    .card-hover:hover {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2) !important;
+        transition: box-shadow 0.2s ease-in-out;
+    }
+</style>
+
+<div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+  <% @posts.each do |post| %>
+    <div class="col">
+      <%= link_to post_path(post), class: "text-decoration-none text-dark" do %>
+        <div class="card h-100 shadow-sm card-hover">
+          <div class="card-body">
+            <h5 class="card-title"><%= post.title %></h5>
+            <p class="card-text"><%= truncate(post.body, length: 150) %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<div class="text-center mt-4">
+  <% if user_signed_in? %>
+    <%= link_to 'Nowy post', new_post_path, class: 'btn btn-success' %>
+  <% else %>
+    <p>
+      <%= link_to 'Zaloguj się', new_user_session_path, class: "btn btn-outline-primary" %>
+      <span class="ms-2">żeby dodawać posty.</span>
+    </p>
+  <% end %>
+</div>
+
+

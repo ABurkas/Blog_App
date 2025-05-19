@@ -2,6 +2,12 @@
   <h1 class="mb-3"><%= @post.title %></h1>
   <p class="fs-5 mb-4"><%= @post.body %></p>
 
+  <div class="mb-4">
+    <%= link_to "📄 Pobierz PDF", download_pdf_post_path(@post),
+                class: "btn btn-outline-primary" %>
+  </div>
+
+
   <h3>Komentarze</h3>
   <% if @post.comments.any? %>
     <ul class="list-group mb-4">

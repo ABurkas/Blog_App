@@ -1,0 +1,8 @@
+<h2>Posty (admin)</h2>
+<% @posts = Post.all %>
+<% @posts.each do |post| %>
+  <div class="mb-3">
+    <h3><%= post.title %></h3>
+    <%= link_to "Zobacz komentarze", admin_post_comments_path(post), class: "btn btn-outline-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+<h2>Komentarze do posta: <%= @post.title %></h2>
+<% @comments.each do |comment| %>
+  <div class="border p-2 mb-2">
+    <p><%= comment.body %></p>
+    <%= button_to "Usuń", admin_post_comment_path(@post, comment),
+                  method: :delete,
+                  data: { turbo_confirm: "Na pewno usunąć?" },
+                  class: "btn btn-danger btn-sm" %>
+  </div>
+<% end %>
+

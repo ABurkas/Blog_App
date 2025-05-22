@@ -1,0 +1,5 @@
+<p>Cześć, <%= @user.email %>!</p>
+
+<p>W załączniku znajdziesz wygenerowany PDF.</p>
+
+<p>Dziękujemy za skorzystanie z naszej aplikacji!</p>

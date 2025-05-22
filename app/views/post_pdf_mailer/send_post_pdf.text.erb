@@ -1,0 +1,6 @@
+<% if @post.present? %>
+  Tytuł posta: <%= @post.title %>
+  Treść posta: <%= @post.body %>
+<% else %>
+  Wszystkie posty są załączone w PDF.
+<% end %>

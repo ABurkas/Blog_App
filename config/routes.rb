@@ -1,4 +1,10 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  get 'pdf/generate_pdf'
+
+  mount Sidekiq::Web => '/sidekiq'
+
   devise_for :users
   resources :friends
 
@@ -9,6 +15,10 @@ Rails.application.routes.draw do
 
     member do
       get :download_pdf
+      post :generate_pdf
+    end
+    collection do
+      post :generate_all_pdf
     end
   end
 

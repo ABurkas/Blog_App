@@ -24,7 +24,7 @@ Rails.application.configure do
     config.action_controller.enable_fragment_cache_logging = true
 
     config.cache_store = :memory_store
-    config.public_file_server.headers = {
+    config.public_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}"
     }
   else
@@ -37,7 +37,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -59,6 +59,9 @@ Rails.application.configure do
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
 
+  #config.active_job.queue_adapter = :async
+
+
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
@@ -73,8 +76,19 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
+  config.active_job.queue_adapter = :sidekiq
+  # SMTP settings for Gmail
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'gmail.com',
+    user_name:            ENV['GMAIL_USERNAME'],
+    password:             ENV['GMAIL_APP_PASSWORD'],
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-
-
 end
+

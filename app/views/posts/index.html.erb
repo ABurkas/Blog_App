@@ -4,6 +4,16 @@
   <%= link_to "📄 Pobierz wszystkie posty (PDF)", download_all_pdf_path, class: "btn btn-outline-primary" %>
 </div>
 
+<%= form_with url: generate_all_pdf_posts_path, method: :post, local: true do |form| %>
+  <div class="mb-3">
+    <%= form.label :email, "Wyślij wszystkie posty jako PDF na adres e-mail:" %>
+    <%= form.email_field :email, required: true, class: "form-control", placeholder: "wpisz adres e-mail" %>
+  </div>
+  <%= form.submit "Wyślij PDF", class: "btn btn-success" %>
+<% end %>
+
+</br>
+
 <style>
     .card-hover:hover {
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2) !important;

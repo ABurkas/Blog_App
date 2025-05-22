@@ -95,6 +95,20 @@ class PostsController < ApplicationController
               disposition: "attachment"
   end
 
+  def generate_pdf
+    email = params[:email]
+    Rails.logger.debug "generate_pdf -> user_id: #{current_user.id}, post_id: #{params[:id]}, email: #{email}"
+    GeneratePdfJob.perform_later(current_user.id, params[:id], email)
+    redirect_to post_path(params[:id]), notice: "Generowanie PDF dla tego posta jest w toku. Otrzymasz maila."
+  end
+
+  def generate_all_pdf
+    email = params[:email]
+    Rails.logger.debug "generate_pdf -> user_id: #{current_user.id}, post_id: #{params[:id]}, email: #{email}"
+    GeneratePdfJob.perform_later(current_user.id, nil, email)
+    redirect_to posts_path, notice: "Generowanie PDF wszystkich postów jest w toku. Otrzymasz maila."
+  end
+
   private
 
   def set_post
